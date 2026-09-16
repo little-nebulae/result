@@ -6,6 +6,10 @@
     "dist"
   ],
   "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsdown",
     "fmt": "oxfmt --disable-nested-config",
