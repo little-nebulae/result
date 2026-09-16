@@ -1,0 +1,31 @@
+{
+  "name": "@little-nebulae/result",
+  "type": "module",
+  "scripts": {
+    "start": "tsx --env-file-if-exists=.env.local src/index.ts",
+    "fmt": "oxfmt --disable-nested-config",
+    "fmt:check": "oxfmt --check --disable-nested-config",
+    "lint": "oxlint --disable-nested-config",
+    "lint:fix": "oxlint --fix --disable-nested-config",
+    "check": "pnpm run lint && pnpm run fmt:check",
+    "fix": "pnpm run lint:fix && pnpm run fmt",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "26.4.1",
+    "oxfmt": "0.68.0",
+    "oxlint": "1.83.0",
+    "oxlint-tsgolint": "7.0.2001",
+    "tsx": "4.23.13",
+    "typescript": "7.0.2",
+    "vitest": "5.0.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.4.2",
+      "onFail": "warn"
+    }
+  },
+  "packageManager": "pnpm@12.4.2"
+}
