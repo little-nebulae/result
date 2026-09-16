@@ -1,1 +1,2 @@
-console.log("Hello world!");
+export type * from "@/types";
+export * from "@/utils";
