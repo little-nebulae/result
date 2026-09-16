@@ -1,5 +1,10 @@
 {
   "name": "@little-nebulae/result",
+  "version": "1.0.0",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "scripts": {
     "start": "tsx --env-file-if-exists=.env.local src/index.ts",
