@@ -4,7 +4,7 @@ export interface Success<TData> {
 }
 
 export interface Failure<TError extends Error> {
-  success: true;
+  success: false;
   error: TError;
 }
 
