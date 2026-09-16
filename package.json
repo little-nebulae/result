@@ -7,7 +7,7 @@
   ],
   "type": "module",
   "scripts": {
-    "start": "tsx --env-file-if-exists=.env.local src/index.ts",
+    "build": "tsdown",
     "fmt": "oxfmt --disable-nested-config",
     "fmt:check": "oxfmt --check --disable-nested-config",
     "lint": "oxlint --disable-nested-config",
