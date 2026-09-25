@@ -23,13 +23,13 @@
   "devDependencies": {
     "@arethetypeswrong/core": "0.18.5",
     "@little-nebulae/serialize-error": "0.1.0",
-    "@types/node": "26.6.1",
-    "oxfmt": "0.68.0",
-    "oxlint": "1.83.0",
-    "oxlint-tsgolint": "7.0.2001",
+    "@types/node": "26.6.2",
+    "oxfmt": "0.70.0",
+    "oxlint": "1.85.0",
+    "oxlint-tsgolint": "7.0.2002",
     "publint": "0.3.24",
     "tsdown": "0.23.0",
-    "tsx": "4.23.13",
+    "tsx": "4.23.15",
     "typescript": "7.0.2",
     "vitest": "5.0.1",
     "zod": "4.6.5"
