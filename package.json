@@ -10,6 +10,10 @@
     ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
   "scripts": {
     "build": "tsdown",
     "fmt": "oxfmt --disable-nested-config",
