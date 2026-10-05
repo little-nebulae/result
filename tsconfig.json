@@ -11,6 +11,7 @@
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "esModuleInterop": true,
     "noEmit": true,
 
@@ -19,6 +20,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
 
     "paths": {
       "@/*": ["./src/*"]
