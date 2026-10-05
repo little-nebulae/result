@@ -169,9 +169,6 @@ importers:
       '@arethetypeswrong/core':
         specifier: 0.18.5
         version: 0.18.5
-      '@little-nebulae/serialize-error':
-        specifier: 0.1.0
-        version: 0.1.0(@little-nebulae/error@1.2.0(type-fest@5.10.0))(@little-nebulae/type-utils@1.2.0)(zod@4.6.5)
       '@types/node':
         specifier: 26.6.4
         version: 26.6.4
@@ -199,9 +196,6 @@ importers:
       vitest:
         specifier: 5.0.3
         version: 5.0.3(@types/node@26.6.4)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(tsx@4.23.15))
-      zod:
-        specifier: 4.6.5
-        version: 4.6.5
 
 packages:
 
@@ -380,21 +374,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@little-nebulae/error@1.2.0':
-    resolution: {integrity: sha512-qESP/Sjin3afQL0BUd2fOYo6h+7HDA6ba/xeMaSNEDs0kf+nwowGigyIV4PFXTvdLdOYPvQk5EHy9pPJeYS+Ig==}
-    peerDependencies:
-      type-fest: ^5.0.0
-
-  '@little-nebulae/serialize-error@0.1.0':
-    resolution: {integrity: sha512-jChifaSgR8t0XQRI5MijF5K9kcph8VEGr7/10gNZYJosI305EHEwF+DQWI+l2JGVqck5DWMs6Shh6APnFequ5A==}
-    peerDependencies:
-      '@little-nebulae/error': ^1.1.0
-      '@little-nebulae/type-utils': ^1.2.0
-      zod: ^4.6.0
-
-  '@little-nebulae/type-utils@1.2.0':
-    resolution: {integrity: sha512-dztj0ThTslqowbRd6XNQ5/Dz9WV+fYBvhCW3CjokXCmRQWvyrJNCU2sulACqyt1V7v8fjrjGcwCwaEQhGWM8hQ==}
 
   '@loaderkit/resolve@1.0.6':
     resolution: {integrity: sha512-G8FdIoF5CypfwmD9rl8BXod5HDn8JqB0CCNBXDTaRZ+yRYhARrrSToX1zg1zy9jX3zLqigsELwhT4gNtkdQAUg==}
@@ -1231,10 +1210,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  non-error@0.1.0:
-    resolution: {integrity: sha512-TMB1uHiGsHRGv1uYclfhivcnf0/PdFp2pNqRxXjncaAsjYMoisaQJI+SSZCqRq+VliwRTC8tsMQfmrWjDMhkPQ==}
-    engines: {node: '>=20'}
-
   obug@2.2.1:
     resolution: {integrity: sha512-XrsrhT5sybtKI6wakr2SPOlGZWWYbUXZ7a0jT8/QOeAPau+1X/bSegNe5YR75oJmEZQbKningirmGOEJCIk61Q==}
     engines: {node: '>=12.20.0'}
@@ -1334,20 +1309,12 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  serialize-error@13.0.1:
-    resolution: {integrity: sha512-bBZaRwLH9PN5HbLCjPId4dP5bNGEtumcErgOX952IsvOhVPrm3/AeK1y0UHA/QaPG701eg0yEnOKsCOC6X/kaA==}
-    engines: {node: '>=20'}
-
   source-map-js@1.2.2:
     resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   std-env@4.3.0:
     resolution: {integrity: sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag==}
-
-  tagged-tag@1.0.0:
-    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
-    engines: {node: '>=20'}
 
   tinybench@6.2.0:
     resolution: {integrity: sha512-78U2TlB2CnVenajOFzf3BKSm0J6oz5L0NV7g32LCPccvYc0lbWvys4d3uUUCS2B1N8PAf2+aekR8i1KbC3HO7Q==}
@@ -1407,10 +1374,6 @@ packages:
     resolution: {integrity: sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
-
-  type-fest@5.10.0:
-    resolution: {integrity: sha512-NoSdpq/WEiAg5sjmBkmV/hfxv6HJH4NqPNrqjtSO5CwRmpsDfaf4begxW34KdJykH/l1yHtwBWQkCRdoXO8mPA==}
-    engines: {node: '>=20'}
 
   typescript@5.6.1-rc:
     resolution: {integrity: sha512-E3b2+1zEFu84jB0YQi9BORDjz9+jGbwwy1Zi3G0LUNw7a7cePUrHMRNy8aPh53nXpkFGVHSxIZo5vKTfYaFiBQ==}
@@ -1534,9 +1497,6 @@ packages:
   yuku-parser@0.10.2:
     resolution: {integrity: sha512-CgaU0/PPjCAIEZ3WQroosOxTY3eeKldAN3h+vk8pMNz4+jl1CZzBR4pW+K/rRPF112VooCL5FdjJoiMNjDrL2A==}
 
-  zod@4.6.5:
-    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
-
 snapshots:
 
   '@andrewbranch/untar.js@1.0.4': {}
@@ -1640,19 +1600,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
-
-  '@little-nebulae/error@1.2.0(type-fest@5.10.0)':
-    dependencies:
-      type-fest: 5.10.0
-
-  '@little-nebulae/serialize-error@0.1.0(@little-nebulae/error@1.2.0(type-fest@5.10.0))(@little-nebulae/type-utils@1.2.0)(zod@4.6.5)':
-    dependencies:
-      '@little-nebulae/error': 1.2.0(type-fest@5.10.0)
-      '@little-nebulae/type-utils': 1.2.0
-      serialize-error: 13.0.1
-      zod: 4.6.5
-
-  '@little-nebulae/type-utils@1.2.0': {}
 
   '@loaderkit/resolve@1.0.6':
     dependencies:
@@ -2134,8 +2081,6 @@ snapshots:
 
   nanoid@3.3.19: {}
 
-  non-error@0.1.0: {}
-
   obug@2.2.1: {}
 
   obug@3.0.0: {}
@@ -2260,16 +2205,9 @@ snapshots:
 
   semver@7.8.5: {}
 
-  serialize-error@13.0.1:
-    dependencies:
-      non-error: 0.1.0
-      type-fest: 5.10.0
-
   source-map-js@1.2.2: {}
 
   std-env@4.3.0: {}
-
-  tagged-tag@1.0.0: {}
 
   tinybench@6.2.0: {}
 
@@ -2317,10 +2255,6 @@ snapshots:
       esbuild: 0.28.2
     optionalDependencies:
       fsevents: 2.3.3
-
-  type-fest@5.10.0:
-    dependencies:
-      tagged-tag: 1.0.0
 
   typescript@5.6.1-rc: {}
 
@@ -2432,5 +2366,3 @@ snapshots:
       '@yuku-parser/binding-linux-x64-musl': 0.10.2
       '@yuku-parser/binding-win32-arm64': 0.10.2
       '@yuku-parser/binding-win32-x64': 0.10.2
-
-  zod@4.6.5: {}
