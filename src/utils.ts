@@ -1,4 +1,4 @@
-import type { Failure, Result, Success } from "@/types";
+import type { AsyncResult, Failure, Result, Success } from "@/types";
 
 export function succeed<TData>(data: TData): Success<TData> {
   return { success: true, data };
@@ -15,4 +15,11 @@ export function unwrap<TData, TError extends Error>(
     return result.data;
   }
   throw result.error;
+}
+
+export async function unwrapAsync<TData, TError extends Error>(
+  asyncResult: AsyncResult<TData, TError>,
+): Promise<TData> {
+  const result = await asyncResult;
+  return unwrap(result);
 }
