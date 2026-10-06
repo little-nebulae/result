@@ -23,3 +23,25 @@ export async function unwrapAsync<TData, TError extends Error>(
   const result = await asyncResult;
   return unwrap(result);
 }
+
+export function attempt<TData, TError extends Error>(
+  tryFn: () => TData,
+  catchFn: (error: unknown) => TError,
+): Result<TData, TError> {
+  try {
+    return succeed(tryFn());
+  } catch (error) {
+    return fail(catchFn(error));
+  }
+}
+
+export async function attemptAsync<TData, TError extends Error>(
+  tryFn: () => Promise<TData>,
+  catchFn: (error: unknown) => TError,
+): AsyncResult<TData, TError> {
+  try {
+    return succeed(await tryFn());
+  } catch (error) {
+    return fail(catchFn(error));
+  }
+}
