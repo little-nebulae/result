@@ -8,7 +8,9 @@ export function fail<TError extends Error>(error: TError): Failure<TError> {
   return { success: false, error };
 }
 
-export function unwrap<TData>(result: Result<TData, Error>): TData {
+export function unwrap<TData, TError extends Error>(
+  result: Result<TData, TError>,
+): TData {
   if (result.success) {
     return result.data;
   }
