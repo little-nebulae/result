@@ -24,11 +24,15 @@ export async function unwrapAsync<TData, TError extends Error>(
   return unwrap(result);
 }
 
-export function attempt<TData, TError extends Error>(
-  tryFn: () => TData,
-  catchFn: (error: unknown) => TError,
-  finallyFn?: () => void,
-): Result<TData, TError> {
+export function attempt<TData, TError extends Error>({
+  tryFn,
+  catchFn,
+  finallyFn,
+}: {
+  tryFn: () => TData;
+  catchFn: (error: unknown) => TError;
+  finallyFn?: () => void;
+}): Result<TData, TError> {
   try {
     return succeed(tryFn());
   } catch (error) {
@@ -38,11 +42,15 @@ export function attempt<TData, TError extends Error>(
   }
 }
 
-export async function attemptAsync<TData, TError extends Error>(
-  tryFn: () => Promise<TData>,
-  catchFn: (error: unknown) => TError,
-  finallyFn?: () => void | Promise<void>,
-): AsyncResult<TData, TError> {
+export async function attemptAsync<TData, TError extends Error>({
+  tryFn,
+  catchFn,
+  finallyFn,
+}: {
+  tryFn: () => Promise<TData>;
+  catchFn: (error: unknown) => TError;
+  finallyFn?: () => void | Promise<void>;
+}): AsyncResult<TData, TError> {
   try {
     return succeed(await tryFn());
   } catch (error) {
