@@ -27,21 +27,27 @@ export async function unwrapAsync<TData, TError extends Error>(
 export function attempt<TData, TError extends Error>(
   tryFn: () => TData,
   catchFn: (error: unknown) => TError,
+  finallyFn?: () => void,
 ): Result<TData, TError> {
   try {
     return succeed(tryFn());
   } catch (error) {
     return fail(catchFn(error));
+  } finally {
+    finallyFn?.();
   }
 }
 
 export async function attemptAsync<TData, TError extends Error>(
   tryFn: () => Promise<TData>,
   catchFn: (error: unknown) => TError,
+  finallyFn?: () => void | Promise<void>,
 ): AsyncResult<TData, TError> {
   try {
     return succeed(await tryFn());
   } catch (error) {
     return fail(catchFn(error));
+  } finally {
+    await finallyFn?.();
   }
 }
