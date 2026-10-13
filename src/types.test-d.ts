@@ -136,4 +136,34 @@ describe("DataOfFn should infer the type of a function's", () => {
 
     expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
   });
+
+  test("AsyncResult's TData", () => {
+    type TestData = {
+      id: number;
+      content: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    async function doSomething(): AsyncResult<TestData, Error> {
+      try {
+        return {
+          success: true,
+          data: {
+            id: 1,
+            content: "Hello there!",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: new Error("Kaboom, baby!", { cause: error }),
+        };
+      }
+    }
+    type InferredData = DataOfFn<typeof doSomething>;
+
+    expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
+  });
 });
