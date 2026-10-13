@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, test } from "vitest";
 
-import type { AsyncResult, DataOf, Result } from "@/types";
+import type { AsyncResult, DataOf, ErrorOf, Result } from "@/types";
 
 describe("DataOf should infer the type of", () => {
   test("Result's TData generic param", () => {
@@ -25,5 +25,14 @@ describe("DataOf should infer the type of", () => {
     type TestResult = AsyncResult<TestData, Error>;
     type InferredData = DataOf<TestResult>;
     expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
+  });
+});
+
+describe("ErrorOf should infer the type of", () => {
+  test("Result's TError", () => {
+    type TestError = TypeError;
+    type TestResult = Result<undefined, TestError>;
+    type InferredError = ErrorOf<TestResult>;
+    expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
   });
 });
