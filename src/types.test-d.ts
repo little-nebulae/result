@@ -42,4 +42,18 @@ describe("ErrorOf should infer the type of", () => {
     type InferredError = ErrorOf<TestResult>;
     expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
   });
+
+  test("Result's TError, even when TError is a generic", () => {
+    interface TestError<TCode extends string> extends Error {
+      code: TCode;
+    }
+    type TestErrorCode = "TEST_ERROR";
+    type TestResult = Result<undefined, TestError<TestErrorCode>>;
+    type InferredError = ErrorOf<TestResult>;
+    expectTypeOf<InferredError>().toEqualTypeOf<TestError<TestErrorCode>>();
+    expectTypeOf<InferredError>().not.toEqualTypeOf<
+      TestError<`NOT_${TestErrorCode}`>
+    >();
+    expectTypeOf<InferredError>().not.toEqualTypeOf<TestError<string>>();
+  });
 });
