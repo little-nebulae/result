@@ -166,4 +166,43 @@ describe("DataOfFn should infer the type of a function's", () => {
 
     expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
   });
+
+  test("AsyncResult's TData, even when TData is a generic", () => {
+    type TestData<TName extends string> = {
+      id: number;
+      name: TName;
+      content: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    type TestName = "Jim Raynor";
+    async function doSomething<T extends string>(
+      name: T,
+    ): AsyncResult<TestData<T>, Error> {
+      try {
+        return {
+          success: true,
+          data: {
+            id: 1,
+            name,
+            content: "Hello there!",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: new Error("Kaboom, baby!", { cause: error }),
+        };
+      }
+    }
+    type InferredData = DataOfFn<typeof doSomething<TestName>>;
+
+    expectTypeOf<InferredData>().toEqualTypeOf<TestData<TestName>>();
+    expectTypeOf<InferredData>().not.toEqualTypeOf<
+      TestData<`NOT_${TestName}`>
+    >();
+    expectTypeOf<InferredData>().not.toEqualTypeOf<TestData<string>>();
+  });
 });
