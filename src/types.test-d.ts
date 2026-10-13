@@ -43,7 +43,7 @@ describe("ErrorOf should infer the type of", () => {
     expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
   });
 
-  test("Result's TError, even when TError is a generic", () => {
+  test("Result's TError, even when TError is a generic custom error", () => {
     interface TestError<TCode extends string> extends Error {
       code: TCode;
     }
@@ -58,7 +58,7 @@ describe("ErrorOf should infer the type of", () => {
     expectTypeOf<InferredError>().not.toEqualTypeOf<TestError<string>>();
   });
 
-  test("Result's TError union, even when each union member is a generic", () => {
+  test("Result's TError union, even when each union member is a generic custom error", () => {
     interface TestTypeError<TCode extends string> extends TypeError {
       code: TCode;
     }
