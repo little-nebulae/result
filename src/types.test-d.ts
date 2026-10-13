@@ -26,6 +26,25 @@ describe("DataOf should infer the type of", () => {
     type InferredData = DataOf<TestResult>;
     expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
   });
+
+  test("Result's TData, even when TData is a generic", () => {
+    type TestData<TName extends string> = {
+      id: number;
+      name: TName;
+      content: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    type TestName = "Jim Raynor";
+    type TestResult = Result<TestData<TestName>, Error>;
+    type InferredData = DataOf<TestResult>;
+
+    expectTypeOf<InferredData>().toEqualTypeOf<TestData<TestName>>();
+    expectTypeOf<InferredData>().not.toEqualTypeOf<
+      TestData<`NOT_${TestName}`>
+    >();
+    expectTypeOf<InferredData>().not.toEqualTypeOf<TestData<string>>();
+  });
 });
 
 describe("ErrorOf should infer the type of", () => {
