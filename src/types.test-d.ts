@@ -3,18 +3,6 @@ import { describe, expectTypeOf, test } from "vitest";
 import type { AsyncResult, DataOf, DataOfFn, ErrorOf, Result } from "@/types";
 
 describe("DataOf should infer the type of", () => {
-  test("Result's TData", () => {
-    type TestData = {
-      id: number;
-      content: string;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-    type TestResult = Result<TestData, Error>;
-    type InferredData = DataOf<TestResult>;
-    expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
-  });
-
   test("AsyncResult's TData", () => {
     type TestData = {
       id: number;
@@ -23,6 +11,18 @@ describe("DataOf should infer the type of", () => {
       updatedAt: Date;
     };
     type TestResult = AsyncResult<TestData, Error>;
+    type InferredData = DataOf<TestResult>;
+    expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
+  });
+
+  test("Result's TData", () => {
+    type TestData = {
+      id: number;
+      content: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    type TestResult = Result<TestData, Error>;
     type InferredData = DataOf<TestResult>;
     expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
   });
@@ -48,16 +48,16 @@ describe("DataOf should infer the type of", () => {
 });
 
 describe("ErrorOf should infer the type of", () => {
-  test("Result's TError", () => {
-    type TestError = TypeError;
-    type TestResult = Result<undefined, TestError>;
+  test("AsyncResult's TError", () => {
+    type TestError = SyntaxError;
+    type TestResult = AsyncResult<undefined, TestError>;
     type InferredError = ErrorOf<TestResult>;
     expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
   });
 
-  test("AsyncResult's TError", () => {
-    type TestError = SyntaxError;
-    type TestResult = AsyncResult<undefined, TestError>;
+  test("Result's TError", () => {
+    type TestError = TypeError;
+    type TestResult = Result<undefined, TestError>;
     type InferredError = ErrorOf<TestResult>;
     expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
   });
