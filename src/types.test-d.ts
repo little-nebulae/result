@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, test } from "vitest";
 
-import type { AsyncResult, DataOf, ErrorOf, Result } from "@/types";
+import type { AsyncResult, DataOf, DataOfFn, ErrorOf, Result } from "@/types";
 
 describe("DataOf should infer the type of", () => {
   test("Result's TData", () => {
@@ -84,5 +84,37 @@ describe("ErrorOf should infer the type of", () => {
     expectTypeOf<
       TestSyntaxError<TestSyntaxErrorCode>
     >().toExtend<InferredError>();
+  });
+});
+
+describe("DataOfFn should infer the type of a function's", () => {
+  test("Result's TData", () => {
+    type TestData = {
+      id: number;
+      content: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    function doSomething(): Result<TestData, Error> {
+      try {
+        return {
+          success: true,
+          data: {
+            id: 1,
+            content: "Hello there!",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: new Error("Kaboom, baby!", { cause: error }),
+        };
+      }
+    }
+    type InferredData = DataOfFn<typeof doSomething>;
+
+    expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
   });
 });
