@@ -14,13 +14,22 @@ export type AsyncResult<TData, TError extends Error> = Promise<
   Result<TData, TError>
 >;
 
-type InferData<R> = R extends { success: true; data: infer D } ? D : never;
-type InferError<R> = R extends { success: false; error: infer E } ? E : never;
+type InferData<TResult> = TResult extends { success: true; data: infer TData }
+  ? TData
+  : never;
+type InferError<TResult> = TResult extends {
+  success: false;
+  error: infer TError;
+}
+  ? TError
+  : never;
 
-export type DataOf<R> = InferData<Awaited<R>>;
-export type ErrorOf<R> = InferError<Awaited<R>>;
+export type DataOf<TResult> = InferData<Awaited<TResult>>;
+export type ErrorOf<TResult> = InferError<Awaited<TResult>>;
 
-export type DataOfFn<F extends (...args: any[]) => any> = DataOf<ReturnType<F>>;
-export type ErrorOfFn<F extends (...args: any[]) => any> = ErrorOf<
-  ReturnType<F>
+export type DataOfFn<TFn extends (...args: any[]) => any> = DataOf<
+  ReturnType<TFn>
+>;
+export type ErrorOfFn<TFn extends (...args: any[]) => any> = ErrorOf<
+  ReturnType<TFn>
 >;
