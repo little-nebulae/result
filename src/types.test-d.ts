@@ -35,4 +35,11 @@ describe("ErrorOf should infer the type of", () => {
     type InferredError = ErrorOf<TestResult>;
     expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
   });
+
+  test("AsyncResult's TError", () => {
+    type TestError = SyntaxError;
+    type TestResult = AsyncResult<undefined, TestError>;
+    type InferredError = ErrorOf<TestResult>;
+    expectTypeOf<InferredError>().toEqualTypeOf<TestError>();
+  });
 });
