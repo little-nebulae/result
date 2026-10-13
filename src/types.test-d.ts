@@ -3,7 +3,7 @@ import { describe, expectTypeOf, test } from "vitest";
 import type { AsyncResult, DataOf, ErrorOf, Result } from "@/types";
 
 describe("DataOf should infer the type of", () => {
-  test("Result's TData generic param", () => {
+  test("Result's TData", () => {
     type TestData = {
       id: number;
       content: string;
@@ -15,7 +15,7 @@ describe("DataOf should infer the type of", () => {
     expectTypeOf<InferredData>().toEqualTypeOf<TestData>();
   });
 
-  test("AsyncResult's TData generic param", () => {
+  test("AsyncResult's TData", () => {
     type TestData = {
       id: number;
       content: string;
