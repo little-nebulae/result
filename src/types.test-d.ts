@@ -1,6 +1,13 @@
 import { describe, expectTypeOf, test } from "vitest";
 
-import type { AsyncResult, DataOf, DataOfFn, ErrorOf, Result } from "@/types";
+import type {
+  AsyncResult,
+  DataOf,
+  DataOfFn,
+  ErrorOf,
+  ErrorOfFn,
+  Result,
+} from "@/types";
 
 describe("DataOf should infer the type of", () => {
   test("AsyncResult's TData", () => {
@@ -205,4 +212,136 @@ describe("DataOfFn should infer the type of a function's", () => {
     >();
     expectTypeOf<InferredData>().not.toEqualTypeOf<TestData<string>>();
   });
+});
+
+test("ErrorOfFn should merge the error union from multiple async functions' results while maintaining generic types' details", async () => {
+  interface NotEnoughMineralsError<TRequired extends number> extends Error {
+    name: "NotEnoughMineralsError";
+    required: TRequired;
+  }
+  interface InvalidBuildingPlacementError<
+    TStructure extends string,
+  > extends Error {
+    name: "InvalidBuildingPlacementError";
+    structure: TStructure;
+  }
+  interface SupplyBlockError<
+    TUnit extends string,
+    TRequired extends number,
+  > extends Error {
+    name: "SupplyBlockError";
+    unit: TUnit;
+    required: TRequired;
+  }
+
+  type BuildBarrackError =
+    | InvalidBuildingPlacementError<"Terran Barrack">
+    | NotEnoughMineralsError<150>;
+  async function buildBarrack(): AsyncResult<
+    "Job's finished.",
+    BuildBarrackError
+  > {
+    try {
+      return {
+        success: true,
+        data: "Job's finished.",
+      };
+    } catch (error) {
+      if (Error.isError(error)) {
+        return {
+          success: false,
+          error: {
+            name: "InvalidBuildingPlacementError",
+            message: "I can't build there",
+            cause: error,
+            structure: "Terran Barrack",
+          },
+        };
+      }
+      return {
+        success: false,
+        error: {
+          name: "NotEnoughMineralsError",
+          message: "Not enough minerals",
+          cause: error,
+          required: 150,
+        },
+      };
+    }
+  }
+
+  type TrainMarineError =
+    | SupplyBlockError<"Terran Marine", 1>
+    | NotEnoughMineralsError<50>;
+  async function trainMarine(): AsyncResult<
+    "You want a piece of me, boy?",
+    TrainMarineError
+  > {
+    try {
+      return {
+        success: true,
+        data: "You want a piece of me, boy?",
+      };
+    } catch (error) {
+      if (Error.isError(error)) {
+        return {
+          success: false,
+          error: {
+            name: "SupplyBlockError",
+            message: "Additional supply depots required.",
+            cause: error,
+            unit: "Terran Marine",
+            required: 1,
+          },
+        };
+      }
+      return {
+        success: false,
+        error: {
+          name: "NotEnoughMineralsError",
+          message: "Not enough minerals",
+          cause: error,
+          required: 50,
+        },
+      };
+    }
+  }
+
+  type TrainFirstUnitError = ErrorOfFn<
+    typeof buildBarrack | typeof trainMarine
+  >;
+  async function trainFirstUnit(): AsyncResult<
+    "You want a piece of me, boy?",
+    TrainFirstUnitError
+  > {
+    const buildBarrackResult = await buildBarrack();
+    if (!buildBarrackResult.success) {
+      return buildBarrackResult;
+    }
+    return await trainMarine();
+  }
+
+  expectTypeOf<
+    ErrorOfFn<typeof trainFirstUnit>
+  >().toEqualTypeOf<TrainFirstUnitError>();
+  expectTypeOf<TrainFirstUnitError>().toEqualTypeOf<
+    BuildBarrackError | TrainMarineError
+  >();
+  expectTypeOf<TrainFirstUnitError>().not.toEqualTypeOf<BuildBarrackError>();
+  expectTypeOf<TrainFirstUnitError>().not.toEqualTypeOf<TrainMarineError>();
+  expectTypeOf<BuildBarrackError>().toExtend<TrainFirstUnitError>();
+  expectTypeOf<TrainMarineError>().toExtend<TrainFirstUnitError>();
+  expectTypeOf<TrainFirstUnitError>()
+    .extract<{
+      name: "InvalidBuildingPlacementError";
+    }>()
+    .toEqualTypeOf<InvalidBuildingPlacementError<"Terran Barrack">>();
+  expectTypeOf<TrainFirstUnitError>()
+    .extract<{
+      name: "SupplyBlockError";
+    }>()
+    .toEqualTypeOf<SupplyBlockError<"Terran Marine", 1>>();
+  expectTypeOf<TrainFirstUnitError>()
+    .extract<{ name: "NotEnoughMineralsError" }>()
+    .toEqualTypeOf<NotEnoughMineralsError<150> | NotEnoughMineralsError<50>>();
 });
