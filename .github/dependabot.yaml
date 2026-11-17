@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      exclude:
+        - "@little-nebulae/*"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      little-nebulae:
+        patterns:
+          - "@little-nebulae/*"
+      oxc:
+        patterns:
+          - "oxfmt"
+          - "oxlint"
+          - "oxlint-tsgolint"
+          - "@oxc-node/*"
+    ignore:
+      - dependency-name: "typescript"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
