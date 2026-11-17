@@ -10,5 +10,6 @@
   },
   "oxc.configPath": ".oxlintrc.json",
   "oxc.fmt.configPath": ".oxfmtrc.json",
-  "js/ts.experimental.useTsgo": true
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "node_modules/typescript"
 }
