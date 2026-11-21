@@ -33,8 +33,12 @@
     "oxlint-tsgolint": "7.0.2007",
     "publint": "0.3.25",
     "tsdown": "0.23.7",
+    "type-fest": "6.0.3",
     "typescript": "7.1.0-beta",
     "vitest": "5.1.0"
+  },
+  "peerDependencies": {
+    "type-fest": "^6.0.0"
   },
   "devEngines": {
     "packageManager": {
