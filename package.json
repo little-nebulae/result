@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "0.18.5",
+    "@little-nebulae/error": "1.5.0",
     "@types/node": "26.6.6",
     "oxfmt": "0.78.0",
     "oxlint": "1.93.0",
@@ -38,6 +39,7 @@
     "vitest": "5.1.0"
   },
   "peerDependencies": {
+    "@little-nebulae/error": "^1.0.0",
     "type-fest": "^6.0.0"
   },
   "devEngines": {
