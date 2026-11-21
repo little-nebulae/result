@@ -4,7 +4,7 @@ import type { AsyncResult, Result } from "@/types";
 
 import { createFailure, createSuccess } from "@/utils/create";
 
-export function attempt<TData, TError extends BaseError<string>>({
+export function produceResult<TData, TError extends BaseError<string>>({
   tryFn,
   catchFn,
   finallyFn,
@@ -22,7 +22,10 @@ export function attempt<TData, TError extends BaseError<string>>({
   }
 }
 
-export async function attemptAsync<TData, TError extends BaseError<string>>({
+export async function produceAsyncResult<
+  TData,
+  TError extends BaseError<string>,
+>({
   tryFn,
   catchFn,
   finallyFn,
