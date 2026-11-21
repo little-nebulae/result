@@ -1,13 +1,7 @@
 import { describe, expectTypeOf, test } from "vitest";
 
-import type {
-  AsyncResult,
-  DataOf,
-  DataOfFn,
-  ErrorOf,
-  ErrorOfFn,
-  Result,
-} from "@/types";
+import type { AsyncResult, Result } from "@/types";
+import type { DataOf, DataOfFn, ErrorOf, ErrorOfFn } from "@/types/infer";
 
 describe("DataOf should infer the type of", () => {
   test("AsyncResult's TData", () => {
