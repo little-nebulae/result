@@ -9,7 +9,7 @@ export function createJsonSuccess<TData extends JsonValue>(
   return { success: true, data };
 }
 
-export function createJsonFailure<TError extends FlatError>(
+export function createJsonFailure<TError extends FlatError<string, JsonValue>>(
   error: TError,
 ): JsonFailure<TError> {
   return { success: false, error };

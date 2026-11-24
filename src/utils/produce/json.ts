@@ -7,7 +7,7 @@ import { createJsonFailure, createJsonSuccess } from "@/utils/create/json";
 
 export function produceJsonResult<
   TData extends JsonValue,
-  TError extends FlatError,
+  TError extends FlatError<string, JsonValue>,
 >({
   tryFn,
   catchFn,
@@ -28,7 +28,7 @@ export function produceJsonResult<
 
 export async function produceAsyncJsonResult<
   TData extends JsonValue,
-  TError extends FlatError,
+  TError extends FlatError<string, JsonValue>,
 >({
   tryFn,
   catchFn,
