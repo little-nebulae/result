@@ -1,10 +1,13 @@
-import type { BaseError } from "@little-nebulae/error";
+import type { BaseError, BaseErrorMeta } from "@little-nebulae/error";
 
 import type { AsyncResult, Result } from "@/types";
 
 import { createFailure, createSuccess } from "@/utils/create";
 
-export function produceResult<TData, TError extends BaseError<string>>({
+export function produceResult<
+  TData,
+  TError extends BaseError<string, unknown, BaseErrorMeta>,
+>({
   tryFn,
   catchFn,
   finallyFn,
@@ -24,7 +27,7 @@ export function produceResult<TData, TError extends BaseError<string>>({
 
 export async function produceAsyncResult<
   TData,
-  TError extends BaseError<string>,
+  TError extends BaseError<string, unknown, BaseErrorMeta>,
 >({
   tryFn,
   catchFn,

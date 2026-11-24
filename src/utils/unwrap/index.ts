@@ -1,10 +1,11 @@
-import type { BaseError } from "@little-nebulae/error";
+import type { BaseError, BaseErrorMeta } from "@little-nebulae/error";
 
 import type { AsyncResult, Result } from "@/types";
 
-export function unwrapResult<TData, TError extends BaseError<string>>(
-  result: Result<TData, TError>,
-): TData {
+export function unwrapResult<
+  TData,
+  TError extends BaseError<string, unknown, BaseErrorMeta>,
+>(result: Result<TData, TError>): TData {
   if (result.success) {
     return result.data;
   }
@@ -13,7 +14,7 @@ export function unwrapResult<TData, TError extends BaseError<string>>(
 
 export async function unwrapAsyncResult<
   TData,
-  TError extends BaseError<string>,
+  TError extends BaseError<string, unknown, BaseErrorMeta>,
 >(asyncResult: AsyncResult<TData, TError>): Promise<TData> {
   const result = await asyncResult;
   return unwrapResult(result);
