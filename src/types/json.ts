@@ -6,16 +6,17 @@ export interface JsonSuccess<TData extends JsonValue> {
   data: TData;
 }
 
-export interface JsonFailure<TError extends FlatError> {
+export interface JsonFailure<TError extends FlatError<string, JsonValue>> {
   success: false;
   error: TError;
 }
 
-export type JsonResult<TData extends JsonValue, TError extends FlatError> =
-  | JsonSuccess<TData>
-  | JsonFailure<TError>;
+export type JsonResult<
+  TData extends JsonValue,
+  TError extends FlatError<string, JsonValue>,
+> = JsonSuccess<TData> | JsonFailure<TError>;
 
 export type AsyncJsonResult<
   TData extends JsonValue,
-  TError extends FlatError,
+  TError extends FlatError<string, JsonValue>,
 > = Promise<JsonResult<TData, TError>>;
